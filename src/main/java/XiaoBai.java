@@ -1,5 +1,9 @@
+import java.util.Scanner;
+
 public class XiaoBai {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
         String logo_text = "__  __ ___    _    ___   ____    _    ___ \n"
                 + "\\ \\/ /|_ _|  / \\  / _ \\ | __ )  / \\  |_ _|\n"
                 + " \\  /  | |  / _ \\| | | ||  _ \\ / _ \\  | | \n"
@@ -12,7 +16,22 @@ public class XiaoBai {
         System.out.println(" Hello! I'm XiaoBai, your dragon assistant.");
         System.out.println(" What can I do for you?");
         System.out.println("____________________________________________________________");
-        System.out.println(" Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
+
+        while (true) {
+            String input = scanner.nextLine();
+
+            if (input.trim().equalsIgnoreCase("bye")) {
+                System.out.println("____________________________________________________________");
+                System.out.println(" Bye. Hope to see you again soon!");
+                System.out.println("____________________________________________________________");
+                break;
+            }
+
+            System.out.println("____________________________________________________________");
+            System.out.println(" " + input);
+            System.out.println("____________________________________________________________");
+        }
+
+        scanner.close();
     }
 }
