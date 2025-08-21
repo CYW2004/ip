@@ -4,7 +4,7 @@ class XiaoBaiException extends Exception {
 
 class EmptyDescriptionException extends XiaoBaiException {
     EmptyDescriptionException(String cmd) {
-        super("(；′⌒`) The description of a " + cmd + " cannot be empty.");
+        super("(ಠ_ಠ) The description of a " + cmd + " cannot be empty.");
     }
 }
 
@@ -16,12 +16,12 @@ class UnknownCommandException extends XiaoBaiException {
 
 class InvalidIndexException extends XiaoBaiException {
     InvalidIndexException() {
-        super("┗|｀O′|┛ That task number is invalid.");
+        super("(˙_˙) That task number is invalid.");
     }
 }
 
 class InvalidFormatException extends XiaoBaiException {
     InvalidFormatException(String hint) {
-        super("(ง •_•)ง Invalid format. " + hint);
+        super("( ˘･з･) Invalid format. " + hint);
     }
 }

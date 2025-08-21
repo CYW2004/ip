@@ -1,16 +1,17 @@
 list
 todo
-deadline return book
 deadline return book /by
-event team sync /from
-event team sync /from Mon 3pm /to 
-todo read book
+event /from Mon 2pm /to 4pm
+todo Read book
 deadline return book /by Sunday
 event project meeting /from Mon 2pm /to 4pm
 list
 mark 2
 unmark 2
+delete 2
 mark 10
-unmark x
-unknowncmd
+mark abc
+delete one
+blah
 bye
+
