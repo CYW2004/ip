@@ -1,12 +1,16 @@
+list
+todo
+deadline return book
+deadline return book /by
+event team sync /from
+event team sync /from Mon 3pm /to 
 todo read book
 deadline return book /by Sunday
 event project meeting /from Mon 2pm /to 4pm
-todo join sports club
-mark 1
 list
-todo borrow book
-deadline do homework /by no idea :-p
-event orientation week /from 4/10/2019 /to 11/10/2019
-list
-unmark 1
+mark 2
+unmark 2
+mark 10
+unmark x
+unknowncmd
 bye
