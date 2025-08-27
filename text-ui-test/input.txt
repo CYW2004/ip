@@ -3,8 +3,10 @@ todo
 deadline return book /by
 event /from Mon 2pm /to 4pm
 todo Read book
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
+deadline return book /by 2019-12-02 1800
+event project meeting /from 2019-12-02 1400 /to 2019-12-02 1600
+deadline pay fees /by 2/12/2019
+event conf /from 2/12/2019 0900 /to 2/12/2019 1700
 list
 mark 2
 unmark 2
@@ -14,4 +16,3 @@ mark abc
 delete one
 blah
 bye
-

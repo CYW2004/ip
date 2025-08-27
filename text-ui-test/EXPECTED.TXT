@@ -30,32 +30,44 @@ ____________________________________________________________
 ____________________________________________________________
 ____________________________________________________________
  Got it. I've added this task:
-   [D][ ] return book (by: Sunday)
+   [D][ ] return book (by: Dec 2 2019 6:00PM)
  Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
  Got it. I've added this task:
-   [E][ ] project meeting (from: Mon 2pm to: 4pm)
+   [E][ ] project meeting (from: Dec 2 2019 2:00PM to: Dec 2 2019 4:00PM)
  Now you have 3 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Got it. I've added this task:
+   [D][ ] pay fees (by: Dec 2 2019)
+ Now you have 4 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Got it. I've added this task:
+   [E][ ] conf (from: Dec 2 2019 9:00AM to: Dec 2 2019 5:00PM)
+ Now you have 5 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
  Here are the tasks in your list:
  1.[T][ ] Read book
- 2.[D][ ] return book (by: Sunday)
- 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+ 2.[D][ ] return book (by: Dec 2 2019 6:00PM)
+ 3.[E][ ] project meeting (from: Dec 2 2019 2:00PM to: Dec 2 2019 4:00PM)
+ 4.[D][ ] pay fees (by: Dec 2 2019)
+ 5.[E][ ] conf (from: Dec 2 2019 9:00AM to: Dec 2 2019 5:00PM)
 ____________________________________________________________
 ____________________________________________________________
  Nice! I've marked this task as done:
-   [D][X] return book (by: Sunday)
+   [D][X] return book (by: Dec 2 2019 6:00PM)
 ____________________________________________________________
 ____________________________________________________________
  OK, I've marked this task as not done yet:
-   [D][ ] return book (by: Sunday)
+   [D][ ] return book (by: Dec 2 2019 6:00PM)
 ____________________________________________________________
 ____________________________________________________________
  Noted. I've removed this task:
-   [D][ ] return book (by: Sunday)
- Now you have 2 tasks in the list.
+   [D][ ] return book (by: Dec 2 2019 6:00PM)
+ Now you have 4 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
  (˙_˙) That task number is invalid.
