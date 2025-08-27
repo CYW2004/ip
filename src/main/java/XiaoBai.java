@@ -6,8 +6,10 @@ public class XiaoBai {
 
     public static void main(String[] args) throws XiaoBaiException {
         Scanner scanner = new Scanner(System.in);
-        List<Task> tasks = new ArrayList<>();
         Ui ui = new Ui();
+
+        Storage storage = new Storage();
+        List<Task> tasks = storage.load(ui);
 
         String logo_text = "__  __ ___    _    ___   ____    _    ___\n"
                 + "\\ \\/ /|_ _|  / \\  / _ \\ | __ )  / \\  |_ _|\n"
@@ -32,8 +34,10 @@ public class XiaoBai {
                 } else if (input.equalsIgnoreCase("list")) {
                     CommandHandler.listTasks(tasks, ui);
 
-                } else if (input.startsWith("mark ")) {
-                    CommandHandler.markTask(tasks, input.substring(5), true, ui);
+                }  else if (input.startsWith("mark ")) {
+                    String rest = input.substring(5);
+                    CommandHandler.markTask(tasks, rest, true, ui);
+                    storage.save(tasks, ui); // NEW
 
                 } else if (input.startsWith("unmark ")) {
                     CommandHandler.markTask(tasks, input.substring(7), false, ui);
