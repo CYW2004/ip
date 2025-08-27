@@ -80,32 +80,39 @@ public class Storage {
         try {
             if (parts.length >= 3) {
                 String type = parts[0].trim();
-                String doneStr = parts[1].trim();
-                String desc = parts[2];
+                boolean isDone = parts[1].trim().equals("1");
 
-                boolean isDone = doneStr.equals("1") || doneStr.equalsIgnoreCase("true") || doneStr.equalsIgnoreCase("x");
-
-                Task t;
                 switch (type) {
-                    case "T":
-                        t = new Todo(desc);
-                        break;
-                    case "D":
+                    case "T": {
+                        String desc = parts[2];
+                        Task t = new Todo(desc);
+                        if (isDone) t.markAsDone();
+                        return t;
+                    }
+                    case "D": {
                         if (parts.length < 4) return null;
-                        t = new Deadline(desc, parts[3]);
-                        break;
-                    case "E":
+                        String desc = parts[2];
+                        String iso = parts[3];
+                        Deadline d = new Deadline(desc, DateTimeUtil.fromIso(iso));
+                        if (isDone) d.markAsDone();
+                        return d;
+                    }
+                    case "E": {
                         if (parts.length < 5) return null;
-                        t = new Event(desc, parts[3], parts[4]);
-                        break;
+                        String desc = parts[2];
+                        String isoStart = parts[3];
+                        String isoEnd = parts[4];
+                        Event e = new Event(desc,
+                                DateTimeUtil.fromIso(isoStart),
+                                DateTimeUtil.fromIso(isoEnd));
+                        if (isDone) e.markAsDone();
+                        return e;
+                    }
                     default:
-                        t = null;
+                        return null;
                 }
-                if (t != null && isDone) t.markAsDone();
-                return t;
             }
-        } catch (Exception ignore) {
-        }
+        } catch (Exception ignore) { }
 
         try {
             if (!line.startsWith("[")) return null;
@@ -129,21 +136,22 @@ public class Storage {
                     int byIdx = rest.lastIndexOf("(by:");
                     if (byIdx < 0) return null;
                     String desc = rest.substring(0, byIdx).trim();
-                    String by = rest.substring(byIdx + 4).trim();
-                    if (by.endsWith(")")) by = by.substring(0, by.length() - 1).trim();
-                    t = new Deadline(desc, by);
+                    String byHuman = rest.substring(byIdx + 4).trim();
+                    if (byHuman.endsWith(")")) byHuman = byHuman.substring(0, byHuman.length() - 1).trim();
+                    t = new Deadline(desc, DateTimeUtil.parseDateTimeLenient(byHuman));
                     break;
                 }
                 case 'E': {
-                    // "...desc (from: START to: END)"
                     int fromIdx = rest.lastIndexOf("(from:");
                     int toIdx = rest.lastIndexOf(" to:");
                     if (fromIdx < 0 || toIdx < 0 || toIdx <= fromIdx) return null;
                     String desc = rest.substring(0, fromIdx).trim();
-                    String from = rest.substring(fromIdx + 6, toIdx).trim();
-                    String to = rest.substring(toIdx + 4).trim();
-                    if (to.endsWith(")")) to = to.substring(0, to.length() - 1).trim();
-                    t = new Event(desc, from, to);
+                    String startHuman = rest.substring(fromIdx + 6, toIdx).trim();
+                    String endHuman = rest.substring(toIdx + 4).trim();
+                    if (endHuman.endsWith(")")) endHuman = endHuman.substring(0, endHuman.length() - 1).trim();
+                    t = new Event(desc,
+                            DateTimeUtil.parseDateTimeLenient(startHuman),
+                            DateTimeUtil.parseDateTimeLenient(endHuman));
                     break;
                 }
                 default:
@@ -153,37 +161,32 @@ public class Storage {
             return t;
 
         } catch (Exception ignore) {
-            return null; // corrupted
+            return null; // corrupted line
         }
     }
 
     private String serialize(Task t) {
-        boolean isDone = t.getStatusIcon().contains("X"); // uses existing API
+        boolean isDone = t.getStatusIcon().contains("X");
         String done = isDone ? "1" : "0";
 
         if (t instanceof Todo) {
-            String desc = stripPrefix(t.toString(), "[T]").trim();
-            desc = stripStatus(desc);
+            String desc = stripStatus(stripPrefix(t.toString(), "[T]").trim());
             return String.join(" | ", "T", done, desc);
         } else if (t instanceof Deadline) {
-            String s = stripPrefix(t.toString(), "[D]").trim();
-            String desc = stripStatus(s);
-            String by = extractSuffix(desc, "(by:");
-            desc = removeSuffix(desc, "(by:");
-            return String.join(" | ", "D", done, desc, by);
+            Deadline d = (Deadline) t;
+            String desc = stripStatus(stripPrefix(d.toString(), "[D]").trim());
+            String iso = DateTimeUtil.toIso(d.getBy());
+            int idx = desc.lastIndexOf("(by:");
+            if (idx >= 0) desc = desc.substring(0, idx).trim();
+            return String.join(" | ", "D", done, desc, iso);
         } else if (t instanceof Event) {
-            String s = stripPrefix(t.toString(), "[E]").trim();
-            String desc = stripStatus(s);
-            String start = extractSuffix(desc, "(from:");
-            String end = "";
-            int toIdx = start.lastIndexOf(" to:");
-            if (toIdx >= 0) {
-                end = start.substring(toIdx + 4).trim();
-                start = start.substring(0, toIdx).trim();
-                if (end.endsWith(")")) end = end.substring(0, end.length() - 1).trim();
-            }
-            desc = removeSuffix(desc, "(from:");
-            return String.join(" | ", "E", done, desc, start, end);
+            Event e = (Event) t;
+            String desc = stripStatus(stripPrefix(e.toString(), "[E]").trim());
+            String isoStart = DateTimeUtil.toIso(e.getStart());
+            String isoEnd = DateTimeUtil.toIso(e.getEnd());
+            int idx = desc.lastIndexOf("(from:");
+            if (idx >= 0) desc = desc.substring(0, idx).trim();
+            return String.join(" | ", "E", done, desc, isoStart, isoEnd);
         } else {
             return "T | " + done + " | " + t.toString();
         }
