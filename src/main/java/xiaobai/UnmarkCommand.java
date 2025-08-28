@@ -8,7 +8,9 @@ public class UnmarkCommand extends Command {
      *
      * @param index Index of the task to unmark.
      */
-    public UnmarkCommand(int index) { this.index = index; }
+    public UnmarkCommand(int index) {
+        this.index = index;
+    }
 
     /**
      * Marks the task at the given index as not done.

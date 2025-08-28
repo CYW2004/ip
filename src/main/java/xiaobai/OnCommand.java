@@ -12,7 +12,9 @@ public class OnCommand extends Command {
      *
      * @param raw Raw date string.
      */
-    public OnCommand(String raw) { this.raw = raw; }
+    public OnCommand(String raw) {
+        this.raw = raw;
+    }
 
     /**
      * Finds all deadlines and events that fall on the given date,

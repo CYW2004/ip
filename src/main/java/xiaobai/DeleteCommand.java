@@ -8,7 +8,9 @@ public class DeleteCommand extends Command {
      *
      * @param index Index of the task to delete.
      */
-    public DeleteCommand(int index) { this.index = index; }
+    public DeleteCommand(int index) {
+        this.index = index;
+    }
 
     /**
      * Deletes the task at the given index from the task list,
