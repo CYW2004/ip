@@ -8,7 +8,9 @@ public class MarkCommand extends Command {
      *
      * @param index Index of the task to mark as done.
      */
-    public MarkCommand(int index) { this.index = index; }
+    public MarkCommand(int index) {
+        this.index = index;
+    }
 
     /**
      * Marks the task at the given index as done,

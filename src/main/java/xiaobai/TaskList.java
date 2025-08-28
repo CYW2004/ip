@@ -32,7 +32,9 @@ public class TaskList {
      *
      * @return Number of tasks.
      */
-    public int size() { return tasks.size(); }
+    public int size() {
+        return tasks.size();
+    }
 
     /**
      * Returns the task at the given 1-based index.
@@ -40,21 +42,27 @@ public class TaskList {
      * @param index1Based 1-based index of the task.
      * @return Task at the given index.
      */
-    public Task get(int index1Based) { return tasks.get(index1Based - 1); }
+    public Task get(int index1Based) {
+        return tasks.get(index1Based - 1);
+    }
 
     /**
      * Returns the internal list of tasks.
      *
      * @return List of tasks.
      */
-    public List<Task> asList() { return tasks; }
+    public List<Task> asList() {
+        return tasks;
+    }
 
     /**
      * Adds a task to the list.
      *
      * @param t Task to add.
      */
-    public void add(Task t) { tasks.add(t); }
+    public void add(Task t) {
+        tasks.add(t);
+    }
 
     /**
      * Removes the task at the given index.
@@ -62,7 +70,9 @@ public class TaskList {
      * @param index1Based 1-based index of the task
      * @return Removed task.
      */
-    public Task remove(int index1Based) { return tasks.remove(index1Based - 1); }
+    public Task remove(int index1Based) {
+        return tasks.remove(index1Based - 1);
+    }
 
     /**
      * Marks the task as done.

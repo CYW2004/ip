@@ -22,7 +22,7 @@ public class Storage {
     /**
      * Creates a Storage instance with "data/xiaobai.txt".
      */
-    public Storage() { // keep default behavior
+    public Storage() {
         this(FILE_DEFAULT());
     }
 
