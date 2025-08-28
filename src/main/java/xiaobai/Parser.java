@@ -1,7 +1,17 @@
 package xiaobai;
 
+/**
+ * Parses user input strings into corresponding Command objects.
+ */
 public class Parser {
 
+    /**
+     * Parses input and returns the corresponding Command.
+     *
+     * @param input Raw input string.
+     * @return Corresponding Command object.
+     * @throws XiaoBaiException If input is invalid or command cannot be parsed.
+     */
     public static Command parse(String input) throws XiaoBaiException {
         String s = input.trim();
         if (s.isEmpty()) {
@@ -86,6 +96,14 @@ public class Parser {
         throw new UnknownCommandException(s);
     }
 
+    /**
+     * Parses a task index from the given string.
+     *
+     * @param s Input string.
+     * @param cmdName Command name.
+     * @return Parsed task index as integer.
+     * @throws XiaoBaiException If the index is invalid or not provided.
+     */
     private static int parseIndexOrThrow(String s, String cmdName) throws XiaoBaiException {
         String t = s.trim();
         if (t.isEmpty()) {

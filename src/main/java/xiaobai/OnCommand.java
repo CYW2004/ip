@@ -6,8 +6,23 @@ import java.time.format.DateTimeFormatter;
 
 public class OnCommand extends Command {
     private final String raw;
+
+    /**
+     * Creates an OnCommand with the given raw date string.
+     *
+     * @param raw Raw date string.
+     */
     public OnCommand(String raw) { this.raw = raw; }
 
+    /**
+     * Finds all deadlines and events that fall on the given date,
+     * and prints them to the user.
+     * Supports date formats yyyy-MM-dd and d/M/yyyy.
+     *
+     * @param tasks Task list.
+     * @param ui User interface.
+     * @param storage Storage handler
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws XiaoBaiException {
         LocalDate d;

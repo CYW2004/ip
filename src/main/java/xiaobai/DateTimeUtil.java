@@ -8,6 +8,10 @@ import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
 import java.util.Locale;
 
+/**
+ * Utility class for parsing and formatting date and date-time values.
+ * Supports ISO and DMY formats and provides standardized printing methods.
+ */
 public final class DateTimeUtil {
     private DateTimeUtil() {}
 
@@ -39,7 +43,13 @@ public final class DateTimeUtil {
     private static final DateTimeFormatter PRINT_DATE_TIME =
             DateTimeFormatter.ofPattern("MMM d yyyy h:mma", Locale.ENGLISH);
 
-    /** Try parse date-time */
+    /**
+     * Parses a date-time string in ISO or DMY formats, with optional time component.
+     * Falls back to parsing as a date-only string if no time is present.
+     *
+     * @param raw Input date-time string.
+     * @return Parsed LocalDateTime object.
+     */
     public static LocalDateTime parseDateTimeLenient(String raw) {
         String s = raw.trim();
 
@@ -57,6 +67,7 @@ public final class DateTimeUtil {
         return d.atStartOfDay();
     }
 
+
     private static LocalDateTime tryParseISODateTime(String s) {
         try {
             if (s.matches("\\d{4}-\\d{2}-\\d{2}([\\s]+\\d{4}|[\\s]+\\d{2}:\\d{2})?")) {
@@ -70,6 +81,12 @@ public final class DateTimeUtil {
         return LocalDateTime.parse(s.matches("\\d{1,2}/\\d{1,2}/\\d{4}$") ? s + " 0000" : s, DATE_TIME_DMY);
     }
 
+    /**
+     * Prints a LocalDateTime in a standardised format.
+     *
+     * @param dt Date-time to format.
+     * @return Formatted string representation.
+     */
     public static String print(LocalDateTime dt) {
         if (dt.getHour() == 0 && dt.getMinute() == 0 && dt.getSecond() == 0) {
             return dt.toLocalDate().format(PRINT_DATE);
@@ -77,14 +94,32 @@ public final class DateTimeUtil {
         return dt.format(PRINT_DATE_TIME);
     }
 
+    /**
+     * Prints a LocalDate
+     *
+     * @param d Date to format.
+     * @return Formatted string representation.
+     */
     public static String print(LocalDate d) {
         return d.format(PRINT_DATE);
     }
 
+    /**
+     * Converts a LocalDateTime to its string representation.
+     *
+     * @param dt Date-time to convert.
+     * @return ISO string representation.
+     */
     public static String toIso(LocalDateTime dt) {
         return dt.toString();
     }
 
+    /**
+     * Parses a string into a LocalDateTime.
+     *
+     * @param s ISO string to parse.
+     * @return Parsed LocalDateTime object.
+     */
     public static LocalDateTime fromIso(String s) {
         return LocalDateTime.parse(s);
     }

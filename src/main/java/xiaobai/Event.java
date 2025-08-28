@@ -6,6 +6,13 @@ public class Event extends Task {
     private final LocalDateTime start;
     private final LocalDateTime end;
 
+    /**
+     * Creates an Event task with description, start and end times.
+     *
+     * @param description Task description.
+     * @param startRaw Start time.
+     * @param endRaw End time.
+     */
     public Event(String description, String startRaw, String endRaw) {
         super(description);
         this.start = DateTimeUtil.parseDateTimeLenient(startRaw);
@@ -15,6 +22,13 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Creates an Event task with description, start and end times.
+     *
+     * @param description Task description.
+     * @param start Start time.
+     * @param end End time.
+     */
     public Event(String description, LocalDateTime start, LocalDateTime end) {
         super(description);
         this.start = start;
@@ -32,6 +46,11 @@ public class Event extends Task {
         return end;
     }
 
+    /**
+     * Returns a string representation of the event task.
+     *
+     * @return Formatted string representation of the event task.
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString()
