@@ -10,6 +10,7 @@ public class Parser {
 
         if (s.equals("bye")) return new ByeCommand();
         if (s.equals("list")) return new ListCommand();
+        if (s.equals("clear")) return new ClearCommand();
 
         if (s.startsWith("todo")) {
             String rest = s.length() > 4 ? s.substring(5) : "";

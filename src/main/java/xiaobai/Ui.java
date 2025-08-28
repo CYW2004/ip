@@ -7,7 +7,7 @@ public class Ui {
     public void printBoxed(String... lines) {
         printLine();
         for (String line : lines) {
-            System.out.println(" " + line);
+            System.out.println("" + line);
         }
         printLine();
     }

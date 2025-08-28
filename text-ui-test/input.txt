@@ -1,3 +1,4 @@
+clear
 list
 todo
 deadline return book /by
@@ -8,6 +9,7 @@ event project meeting /from 2019-12-02 1400 /to 2019-12-02 1600
 deadline pay fees /by 2/12/2019
 event conf /from 2/12/2019 0900 /to 2/12/2019 1700
 list
+on 2019-12-02
 mark 2
 unmark 2
 delete 2
@@ -15,4 +17,5 @@ mark 10
 mark abc
 delete one
 blah
+clear
 bye

@@ -1,2 +1,0 @@
-T | 0 | read 1 book
-T | 1 | clean room

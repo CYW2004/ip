@@ -21,12 +21,14 @@ public class XiaoBai {
 
     public void run() {
         Scanner scanner = new Scanner(System.in);
-        ui.printBoxed( "\n__  __ ___    _    ___   ____    _    ___\n"
+
+        String logo_text = "\n__  __ ___    _    ___   ____    _    ___\n"
                 + "\\ \\/ /|_ _|  / \\  / _ \\ | __ )  / \\  |_ _|\n"
                 + " \\  /  | |  / _ \\| | | ||  _ \\ / _ \\  | |\n"
                 + " /  \\  | | / ___ \\ |_| || |_) / ___ \\ | |\n"
-                + "/_/\\_\\|___/_/   \\_\\___/ |____/_/   \\_\\___|\n"
-        );
+                + "/_/\\_\\|___/_/   \\_\\___/ |____/_/   \\_\\___|\n";
+
+        ui.printBoxed(logo_text);
 
         ui.printBoxed(" (*^_^*)\n" +
                 " Hello! I'm XiaoBai\n" +
