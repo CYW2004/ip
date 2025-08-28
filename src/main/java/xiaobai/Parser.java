@@ -85,6 +85,14 @@ public class Parser {
             return new DeleteCommand(idx);
         }
 
+        if (s.startsWith("find")) {
+            String rest = s.length() > 4 ? s.substring(5) : "";
+            if (rest.isBlank()) {
+                throw new InvalidFormatException("Use: find <keyword>");
+            }
+            return new FindCommand(rest);
+        }
+
         if (s.startsWith("on ")) {
             String raw = s.substring(3).trim();
             if (raw.isBlank()) {
