@@ -1,71 +1,50 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class XiaoBai {
 
-    public static void main(String[] args) throws XiaoBaiException {
+    private final Storage storage;
+    private TaskList tasks;
+    private final Ui ui;
+
+    public XiaoBai(String filePath) {
+        this.ui = new Ui();
+        this.storage = new Storage(filePath);
+        try {
+            this.tasks = new TaskList(storage.load(ui));
+        } catch (Exception e) {
+            ui.printErrorBox("(>_<) Failed to load tasks: " + e.getMessage());
+            this.tasks = new TaskList();
+        }
+    }
+
+    public void run() {
         Scanner scanner = new Scanner(System.in);
-        Ui ui = new Ui();
-
-        Storage storage = new Storage();
-        List<Task> tasks = storage.load(ui);
-
-        String logo_text = "__  __ ___    _    ___   ____    _    ___\n"
+        ui.printBoxed( "\n__  __ ___    _    ___   ____    _    ___\n"
                 + "\\ \\/ /|_ _|  / \\  / _ \\ | __ )  / \\  |_ _|\n"
                 + " \\  /  | |  / _ \\| | | ||  _ \\ / _ \\  | |\n"
                 + " /  \\  | | / ___ \\ |_| || |_) / ___ \\ | |\n"
-                + "/_/\\_\\|___/_/   \\_\\___/ |____/_/   \\_\\___|\n";
-        String expression = "(*^_^*)";
+                + "/_/\\_\\|___/_/   \\_\\___/ |____/_/   \\_\\___|\n"
+        );
 
-        ui.printLine();
-        System.out.println();
-        System.out.println(logo_text);
-        ui.printBoxed(expression, "Hello! I'm XiaoBai", "What can I do for you?");
+        ui.printBoxed(" (*^_^*)\n" +
+                " Hello! I'm XiaoBai\n" +
+                " What can I do for you?"
+        );
 
-        while (true) {
-            if (!scanner.hasNextLine()) break;
-            String input = scanner.nextLine().trim();
-
+        boolean isExit = false;
+        while (!isExit && scanner.hasNextLine()) {
+            String fullCommand = scanner.nextLine();
             try {
-                if (input.equalsIgnoreCase("bye")) {
-                    ui.printBoxed("(¦3[▓▓] Bye! Hope to see you again soon!");
-                    break;
-                } else if (input.equalsIgnoreCase("list")) {
-                    CommandHandler.listTasks(tasks, ui);
-
-                }  else if (input.startsWith("mark ")) {
-                    String rest = input.substring(5);
-                    CommandHandler.markTask(tasks, rest, true, ui);
-                    storage.save(tasks, ui); // NEW
-
-                } else if (input.startsWith("unmark ")) {
-                    CommandHandler.markTask(tasks, input.substring(7), false, ui);
-
-                } else if (input.startsWith("delete ")) {
-                    CommandHandler.deleteTask(tasks, input.substring(7), ui);
-
-                } else if (input.startsWith("todo")) {
-                    String rest = input.length() > 4 ? input.substring(4) : "";
-                    CommandHandler.addTodo(tasks, rest, ui);
-
-                } else if (input.startsWith("deadline")) {
-                    String rest = input.length() > 8 ? input.substring(8) : "";
-                    CommandHandler.addDeadline(tasks, rest, ui);
-
-                } else if (input.startsWith("event")) {
-                    String rest = input.length() > 5 ? input.substring(5) : "";
-                    CommandHandler.addEvent(tasks, rest, ui);
-
-                } else {
-                    throw new UnknownCommandException(input);
-                }
-
+                Command c = Parser.parse(fullCommand);
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
             } catch (XiaoBaiException xe) {
                 ui.printErrorBox(xe.getMessage());
             }
         }
+    }
 
-        scanner.close();
+    public static void main(String[] args) {
+        new XiaoBai("data/xiaobai.txt").run();
     }
 }

@@ -11,7 +11,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Storage {
-    private static final Path FILE = Paths.get("data", "xiaobai.txt");
+    private final Path FILE;
+
+    public Storage() { // keep default behavior
+        this(FILE_DEFAULT());
+    }
+
+    public Storage(String pathStr) {
+        this(FILE_FROM(pathStr));
+    }
+
+    public Storage(Path path) {
+        this.FILE = path;
+    }
+
+    private static Path FILE_DEFAULT() {
+        return Paths.get("data", "xiaobai.txt");
+    }
+
+    private static Path FILE_FROM(String p) {
+        return Paths.get(p);
+    }
+
 
     /** Load tasks from disk. If the doesn't exist, returns an empty list. */
     public List<Task> load(Ui ui) {
