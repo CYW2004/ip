@@ -2,12 +2,22 @@ package xiaobai;
 
 import java.util.Scanner;
 
+/**
+ * Entry point of the XiaoBai task management program.
+ * Handles initialization, user interaction loop, and command execution.
+ */
 public class XiaoBai {
 
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
 
+    /**
+     * Creates a XiaoBai instance with the given file path for task storage.
+     * Loads tasks from disk, or initializes an empty task list if loading fails.
+     *
+     * @param filePath Path to the storage file.
+     */
     public XiaoBai(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -19,6 +29,11 @@ public class XiaoBai {
         }
     }
 
+    /**
+     * Runs the XiaoBai program.
+     * Displays a greeting, reads and executes user commands.
+     * Terminates if exit command is given.
+     */
     public void run() {
         Scanner scanner = new Scanner(System.in);
 

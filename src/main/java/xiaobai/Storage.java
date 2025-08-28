@@ -12,17 +12,36 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Handles saving and loading tasks to and from disk.
+ * Uses text file serialization.
+ */
 public class Storage {
     private final Path FILE;
 
+    /**
+     * Creates a Storage instance with "data/xiaobai.txt".
+     */
     public Storage() { // keep default behavior
         this(FILE_DEFAULT());
     }
 
+    /**
+     * Creates a Storage instance with the specified file path string.
+     * Not useful for now.
+     *
+     * @param pathStr File path.
+     */
     public Storage(String pathStr) {
         this(FILE_FROM(pathStr));
     }
 
+    /**
+     * Creates a Storage instance with the specified Path.
+     * Still not useful for now.
+     *
+     * @param path Path object.
+     */
     public Storage(Path path) {
         this.FILE = path;
     }
@@ -36,7 +55,13 @@ public class Storage {
     }
 
 
-    /** Load tasks from disk. If the doesn't exist, returns an empty list. */
+    /**
+     * Loads tasks, returns an empty list if file does not exist.
+     * Skips corrupted lines.
+     *
+     * @param ui User interface.
+     * @return List of tasks loaded.
+     */
     public List<Task> load(Ui ui) {
         List<Task> tasks = new ArrayList<>();
 
@@ -77,7 +102,15 @@ public class Storage {
         return tasks;
     }
 
-    /** Save tasks to disk */
+
+    /**
+     * Saves tasks to disk.
+     * Creates parent directories if they do not exist.
+     * Prints an error message if saving fails.
+     *
+     * @param tasks Task list.
+     * @param ui User interface.
+     */
     public void save(List<Task> tasks, Ui ui) {
         try {
             if (FILE.getParent() != null) {
