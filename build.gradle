@@ -28,11 +28,19 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("xiaobai.XiaoBai")
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'xiaobai.XiaoBai'  // replace with your package + main class
+        )
+    }
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "xiaobai"
     archiveClassifier = null
 }
 
