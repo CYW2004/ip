@@ -13,7 +13,7 @@ public class Event extends Task {
      * @param startRaw Start time.
      * @param endRaw End time.
      */
-    public Event(String description, String startRaw, String endRaw) {
+    public Event(String description, String startRaw, String endRaw) throws XiaoBaiException {
         super(description);
         this.start = DateTimeUtil.parseDateTimeLenient(startRaw);
         this.end = DateTimeUtil.parseDateTimeLenient(endRaw);

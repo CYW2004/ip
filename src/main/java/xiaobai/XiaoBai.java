@@ -1,6 +1,9 @@
 package xiaobai;
 
 import java.util.Scanner;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Entry point of the XiaoBai task management program.
@@ -61,6 +64,53 @@ public class XiaoBai {
                 ui.printErrorBox(xe.getMessage());
             }
         }
+    }
+
+    public String getResponse(String input) {
+        PrintStream oldOut = System.out;
+        PrintStream oldErr = System.err;
+
+        ByteArrayOutputStream outBuf = new ByteArrayOutputStream();
+        ByteArrayOutputStream errBuf = new ByteArrayOutputStream();
+        PrintStream capOut = new PrintStream(outBuf, true, StandardCharsets.UTF_8);
+        PrintStream capErr = new PrintStream(errBuf, true, StandardCharsets.UTF_8);
+
+        System.setOut(capOut);
+        System.setErr(capErr);
+
+        String uiText = "";
+        try {
+            Command c = Parser.parse(input);
+
+            GuiUi guiUi = new GuiUi();
+            c.execute(tasks, guiUi, storage);
+            uiText = guiUi.getText();
+
+        } catch (XiaoBaiException xe) {
+            uiText = xe.getMessage();
+        } catch (Exception e) {
+            uiText = "☹ OOPS!!! " + (e.getMessage() == null ? e.toString() : e.getMessage());
+        } finally {
+            System.setOut(oldOut);
+            System.setErr(oldErr);
+        }
+
+        String printed = outBuf.toString(StandardCharsets.UTF_8);
+        String printedErr = errBuf.toString(StandardCharsets.UTF_8);
+
+        StringBuilder reply = new StringBuilder();
+        if (uiText != null && !uiText.isBlank()) reply.append(uiText.trim());
+        if (!printed.isBlank()) {
+            if (reply.length() > 0) reply.append(System.lineSeparator());
+            reply.append(printed.trim());
+        }
+        if (!printedErr.isBlank()) {
+            if (reply.length() > 0) reply.append(System.lineSeparator());
+            reply.append(printedErr.trim());
+        }
+
+        String result = reply.toString();
+        return result.isBlank() ? "(no output)" : result;
     }
 
     public static void main(String[] args) {

@@ -10,7 +10,7 @@ public class TaskListTest {
     private TaskList taskList;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws XiaoBaiException {
         taskList = new TaskList();
         taskList.add(new Todo("Read book"));
         taskList.add(new Deadline("Submit report", "2025-09-01 18:00"));

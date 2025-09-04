@@ -11,7 +11,7 @@ public class Deadline extends Task {
      * @param description Description of the task.
      * @param byRaw Deadline of the task in string format.
      */
-    public Deadline(String description, String byRaw) {
+    public Deadline(String description, String byRaw) throws XiaoBaiException {
         super(description);
         this.by = DateTimeUtil.parseDateTimeLenient(byRaw);
     }
