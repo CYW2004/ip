@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-/** A GUI for XiaoBai using FXML. */
 public class Main extends Application {
     private final XiaoBai xiaoBai = new XiaoBai("data/xiaobai.txt");
 
