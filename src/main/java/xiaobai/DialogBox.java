@@ -13,7 +13,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
-/** Dialog bubble consisting of text and a display picture. */
 public class DialogBox extends HBox {
     @FXML private Label dialog;
     @FXML private ImageView displayPicture;
