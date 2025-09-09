@@ -2,7 +2,6 @@ package xiaobai;
 
 /**
  * A UI used by the GUI layer that accumulates output as text
- * (instead of printing to System.out).
  */
 public class GuiUi extends Ui {
     private final StringBuilder sb = new StringBuilder();
