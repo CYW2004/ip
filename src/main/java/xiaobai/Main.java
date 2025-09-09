@@ -24,7 +24,7 @@ public class Main extends Application {
             stage.setResizable(false);
             MainWindow controller = fxmlLoader.getController();
             assert controller != null : "MainWindow controller must not be null";
-            controller.setXiaoBai(xiaoBai); // inject
+            controller.setXiaoBai(xiaoBai);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
