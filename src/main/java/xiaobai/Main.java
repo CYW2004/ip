@@ -12,17 +12,23 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
+        assert stage != null : "Stage must not be null";
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            assert fxmlLoader != null : "FXMLLoader must not be null";
             AnchorPane ap = fxmlLoader.load();
+            assert ap != null : "AnchorPane must not be null after loading FXML";
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setTitle("XiaoBai");
             stage.setResizable(false);
-            fxmlLoader.<MainWindow>getController().setXiaoBai(xiaoBai); // inject
+            MainWindow controller = fxmlLoader.getController();
+            assert controller != null : "MainWindow controller must not be null";
+            controller.setXiaoBai(xiaoBai); // inject
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+            assert false : "IOException occurred while starting application: " + e.getMessage();
         }
     }
 }

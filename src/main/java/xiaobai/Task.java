@@ -8,16 +8,20 @@ public class Task {
     protected boolean isDone;
 
     public Task(String description) {
+        assert description != null : "Description must not be null";
         this.description = description;
         this.isDone = false;
+        assert !isDone : "New task must be not done by default";
     }
 
     public void markAsDone() {
         isDone = true;
+        assert isDone : "Task should be marked as done";
     }
 
     public void markAsNotDone() {
         isDone = false;
+        assert !isDone : "Task should be marked as not done";
     }
 
     /**
@@ -36,7 +40,7 @@ public class Task {
      */
     @Override
     public String toString() {
+        assert description != null : "Task description must not be null";
         return getStatusIcon() + " " + description;
     }
 }
-

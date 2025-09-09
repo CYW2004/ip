@@ -15,6 +15,8 @@ public class TaskList {
      */
     public TaskList() {
         this.tasks = new ArrayList<>();
+        assert tasks != null : "Tasks list must not be null after initialization";
+        assert tasks.isEmpty() : "New TaskList must be empty";
     }
 
     /**
@@ -25,6 +27,7 @@ public class TaskList {
      */
     public TaskList(List<Task> initial) {
         this.tasks = new ArrayList<>(initial == null ? List.of() : initial);
+        assert tasks != null : "Tasks list must not be null after initialization";
     }
 
     /**
@@ -33,7 +36,9 @@ public class TaskList {
      * @return Number of tasks.
      */
     public int size() {
-        return tasks.size();
+        int size = tasks.size();
+        assert size >= 0 : "Size must not be negative";
+        return size;
     }
 
     /**
@@ -43,7 +48,10 @@ public class TaskList {
      * @return Task at the given index.
      */
     public Task get(int index1Based) {
-        return tasks.get(index1Based - 1);
+        assert index1Based > 0 && index1Based <= tasks.size() : "Index out of bounds";
+        Task t = tasks.get(index1Based - 1);
+        assert t != null : "Retrieved task must not be null";
+        return t;
     }
 
     /**
@@ -52,6 +60,7 @@ public class TaskList {
      * @return List of tasks.
      */
     public List<Task> asList() {
+        assert tasks != null : "Tasks list must not be null";
         return tasks;
     }
 
@@ -61,7 +70,10 @@ public class TaskList {
      * @param t Task to add.
      */
     public void add(Task t) {
+        assert t != null : "Task to add must not be null";
+        int oldSize = tasks.size();
         tasks.add(t);
+        assert tasks.size() == oldSize + 1 : "Size must increase after add";
     }
 
     /**
@@ -71,7 +83,12 @@ public class TaskList {
      * @return Removed task.
      */
     public Task remove(int index1Based) {
-        return tasks.remove(index1Based - 1);
+        assert index1Based > 0 && index1Based <= tasks.size() : "Index out of bounds for remove";
+        int oldSize = tasks.size();
+        Task t = tasks.remove(index1Based - 1);
+        assert t != null : "Removed task must not be null";
+        assert tasks.size() == oldSize - 1 : "Size must decrease after remove";
+        return t;
     }
 
     /**
@@ -82,7 +99,9 @@ public class TaskList {
      */
     public Task mark(int index1Based) {
         Task t = get(index1Based);
+        assert t != null : "Task to mark must not be null";
         t.markAsDone();
+        assert t.isDone : "Task should be marked as done";
         return t;
     }
 
@@ -94,7 +113,9 @@ public class TaskList {
      */
     public Task unmark(int index1Based) {
         Task t = get(index1Based);
+        assert t != null : "Task to unmark must not be null";
         t.markAsNotDone();
+        assert !t.isDone : "Task should be marked as not done";
         return t;
     }
 
@@ -105,13 +126,18 @@ public class TaskList {
      * @return Formatted string of all tasks, or message if empty.
      */
     public String renderList() {
+        assert tasks != null : "Tasks list must not be null";
         if (tasks.isEmpty()) {
             return "Your task list is empty.";
         }
         StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            sb.append(" ").append(i + 1).append(".").append(tasks.get(i)).append("\n");
+            Task t = tasks.get(i);
+            assert t != null : "Task in list must not be null";
+            sb.append(" ").append(i + 1).append(".").append(t).append("\n");
         }
-        return sb.toString().trim();
+        String result = sb.toString().trim();
+        assert result != null : "Rendered string must not be null";
+        return result;
     }
 }

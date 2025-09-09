@@ -43,17 +43,20 @@ public class Storage {
      * @param path Path object.
      */
     public Storage(Path path) {
+        assert path != null : "Path must not be null";
         this.FILE = path;
     }
 
     private static Path FILE_DEFAULT() {
-        return Paths.get("data", "xiaobai.txt");
+        Path p = Paths.get("data", "xiaobai.txt");
+        assert p != null : "Default path must not be null";
+        return p;
     }
 
     private static Path FILE_FROM(String p) {
+        assert p != null && !p.isBlank() : "File path string must not be null or blank";
         return Paths.get(p);
     }
-
 
     /**
      * Loads tasks, returns an empty list if file does not exist.
@@ -63,6 +66,7 @@ public class Storage {
      * @return List of tasks loaded.
      */
     public List<Task> load(Ui ui) {
+        assert FILE != null : "File path must not be null";
         List<Task> tasks = new ArrayList<>();
 
         try {
@@ -99,9 +103,9 @@ public class Storage {
             }
         }
 
+        assert tasks != null : "Loaded tasks list must not be null";
         return tasks;
     }
-
 
     /**
      * Saves tasks to disk.
@@ -112,12 +116,15 @@ public class Storage {
      * @param ui User interface.
      */
     public void save(List<Task> tasks, Ui ui) {
+        assert tasks != null : "Tasks list must not be null";
+        assert FILE != null : "File path must not be null";
         try {
             if (FILE.getParent() != null) {
                 Files.createDirectories(FILE.getParent());
             }
             try (BufferedWriter bw = Files.newBufferedWriter(FILE, StandardCharsets.UTF_8)) {
                 for (Task t : tasks) {
+                    assert t != null : "Task must not be null";
                     bw.write(serialize(t));
                     bw.newLine();
                 }
@@ -132,6 +139,7 @@ public class Storage {
     // Helpers:
 
     private Task parseLine(String line) {
+        assert line != null : "Line must not be null";
         String[] parts = line.split("\\s*\\|\\s*");
         try {
             if (parts.length >= 3) {
@@ -139,33 +147,33 @@ public class Storage {
                 boolean isDone = parts[1].trim().equals("1");
 
                 switch (type) {
-                    case "T": {
-                        String desc = parts[2];
-                        Task t = new Todo(desc);
-                        if (isDone) t.markAsDone();
-                        return t;
-                    }
-                    case "D": {
-                        if (parts.length < 4) return null;
-                        String desc = parts[2];
-                        String iso = parts[3];
-                        Deadline d = new Deadline(desc, DateTimeUtil.fromIso(iso));
-                        if (isDone) d.markAsDone();
-                        return d;
-                    }
-                    case "E": {
-                        if (parts.length < 5) return null;
-                        String desc = parts[2];
-                        String isoStart = parts[3];
-                        String isoEnd = parts[4];
-                        Event e = new Event(desc,
-                                DateTimeUtil.fromIso(isoStart),
-                                DateTimeUtil.fromIso(isoEnd));
-                        if (isDone) e.markAsDone();
-                        return e;
-                    }
-                    default:
-                        return null;
+                case "T": {
+                    String desc = parts[2];
+                    Task t = new Todo(desc);
+                    if (isDone) t.markAsDone();
+                    return t;
+                }
+                case "D": {
+                    if (parts.length < 4) return null;
+                    String desc = parts[2];
+                    String iso = parts[3];
+                    Deadline d = new Deadline(desc, DateTimeUtil.fromIso(iso));
+                    if (isDone) d.markAsDone();
+                    return d;
+                }
+                case "E": {
+                    if (parts.length < 5) return null;
+                    String desc = parts[2];
+                    String isoStart = parts[3];
+                    String isoEnd = parts[4];
+                    Event e = new Event(desc,
+                            DateTimeUtil.fromIso(isoStart),
+                            DateTimeUtil.fromIso(isoEnd));
+                    if (isDone) e.markAsDone();
+                    return e;
+                }
+                default:
+                    return null;
                 }
             }
         } catch (Exception ignore) { }
@@ -184,34 +192,34 @@ public class Storage {
 
             Task t;
             switch (type) {
-                case 'T': {
-                    t = new Todo(rest);
-                    break;
-                }
-                case 'D': {
-                    int byIdx = rest.lastIndexOf("(by:");
-                    if (byIdx < 0) return null;
-                    String desc = rest.substring(0, byIdx).trim();
-                    String byHuman = rest.substring(byIdx + 4).trim();
-                    if (byHuman.endsWith(")")) byHuman = byHuman.substring(0, byHuman.length() - 1).trim();
-                    t = new Deadline(desc, DateTimeUtil.parseDateTimeLenient(byHuman));
-                    break;
-                }
-                case 'E': {
-                    int fromIdx = rest.lastIndexOf("(from:");
-                    int toIdx = rest.lastIndexOf(" to:");
-                    if (fromIdx < 0 || toIdx < 0 || toIdx <= fromIdx) return null;
-                    String desc = rest.substring(0, fromIdx).trim();
-                    String startHuman = rest.substring(fromIdx + 6, toIdx).trim();
-                    String endHuman = rest.substring(toIdx + 4).trim();
-                    if (endHuman.endsWith(")")) endHuman = endHuman.substring(0, endHuman.length() - 1).trim();
-                    t = new Event(desc,
-                            DateTimeUtil.parseDateTimeLenient(startHuman),
-                            DateTimeUtil.parseDateTimeLenient(endHuman));
-                    break;
-                }
-                default:
-                    return null;
+            case 'T': {
+                t = new Todo(rest);
+                break;
+            }
+            case 'D': {
+                int byIdx = rest.lastIndexOf("(by:");
+                if (byIdx < 0) return null;
+                String desc = rest.substring(0, byIdx).trim();
+                String byHuman = rest.substring(byIdx + 4).trim();
+                if (byHuman.endsWith(")")) byHuman = byHuman.substring(0, byHuman.length() - 1).trim();
+                t = new Deadline(desc, DateTimeUtil.parseDateTimeLenient(byHuman));
+                break;
+            }
+            case 'E': {
+                int fromIdx = rest.lastIndexOf("(from:");
+                int toIdx = rest.lastIndexOf(" to:");
+                if (fromIdx < 0 || toIdx < 0 || toIdx <= fromIdx) return null;
+                String desc = rest.substring(0, fromIdx).trim();
+                String startHuman = rest.substring(fromIdx + 6, toIdx).trim();
+                String endHuman = rest.substring(toIdx + 4).trim();
+                if (endHuman.endsWith(")")) endHuman = endHuman.substring(0, endHuman.length() - 1).trim();
+                t = new Event(desc,
+                        DateTimeUtil.parseDateTimeLenient(startHuman),
+                        DateTimeUtil.parseDateTimeLenient(endHuman));
+                break;
+            }
+            default:
+                return null;
             }
             if (isDone) t.markAsDone();
             return t;
@@ -222,6 +230,7 @@ public class Storage {
     }
 
     private String serialize(Task t) {
+        assert t != null : "Task must not be null";
         boolean isDone = t.getStatusIcon().contains("X");
         String done = isDone ? "1" : "0";
 
@@ -249,16 +258,21 @@ public class Storage {
     }
 
     private String stripPrefix(String s, String prefix) {
+        assert s != null : "String must not be null";
+        assert prefix != null : "Prefix must not be null";
         return s.startsWith(prefix) ? s.substring(prefix.length()) : s;
     }
 
     private String stripStatus(String s) {
+        assert s != null : "String must not be null";
         if (s.startsWith("[X] ")) return s.substring(4);
         if (s.startsWith("[ ] ")) return s.substring(4);
         return s;
     }
 
     private String extractSuffix(String s, String marker) {
+        assert s != null : "String must not be null";
+        assert marker != null : "Marker must not be null";
         int idx = s.lastIndexOf(marker);
         if (idx < 0) return "";
         String tail = s.substring(idx + marker.length()).trim();
@@ -267,9 +281,10 @@ public class Storage {
     }
 
     private String removeSuffix(String s, String marker) {
+        assert s != null : "String must not be null";
+        assert marker != null : "Marker must not be null";
         int idx = s.lastIndexOf(marker);
         if (idx < 0) return s;
         return s.substring(0, idx).trim();
     }
 }
-

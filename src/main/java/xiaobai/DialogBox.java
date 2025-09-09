@@ -18,6 +18,8 @@ public class DialogBox extends HBox {
     @FXML private ImageView displayPicture;
 
     private DialogBox(String text, Image img) {
+        assert text != null : "Text must not be null";
+        assert img != null : "Image must not be null";
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -28,6 +30,8 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        assert dialog != null : "Dialog label must be loaded";
+        assert displayPicture != null : "Display picture must be loaded";
         dialog.setWrapText(true);
         dialog.setMaxWidth(300);
         dialog.setText(sanitize(text));
@@ -36,6 +40,7 @@ public class DialogBox extends HBox {
 
     private void flip() {
         ObservableList<Node> tmp = FXCollections.observableArrayList(getChildren());
+        assert tmp != null : "Children list must not be null";
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
@@ -44,19 +49,25 @@ public class DialogBox extends HBox {
     private static String sanitize(String s) {
         if (s == null) return "";
         String noAnsi = s.replaceAll("\\u001B\\[[;\\d]*m", "");
+        assert noAnsi != null : "String replace must not return null";
         String ascii = noAnsi
                 .replace('┌', '+').replace('┐', '+').replace('└', '+').replace('┘', '+')
                 .replace('│', '|').replace('─', '-').replace('┬', '+').replace('┴', '+')
                 .replace('┤', '+').replace('├', '+').replace('┼', '+');
         ascii = ascii.replaceAll("[^\\p{Print}\\n\\r\\t]", "?");
+        assert ascii != null : "ASCII sanitization must not return null";
         return ascii.replace("\r\n", "\n");
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
+        assert text != null : "User dialog text must not be null";
+        assert img != null : "User dialog image must not be null";
         return new DialogBox(text, img);
     }
 
     public static DialogBox getBotDialog(String text, Image img) {
+        assert text != null : "Bot dialog text must not be null";
+        assert img != null : "Bot dialog image must not be null";
         var db = new DialogBox(text, img);
         db.flip();
         return db;

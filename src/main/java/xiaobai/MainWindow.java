@@ -21,21 +21,28 @@ public class MainWindow {
 
     @FXML
     public void initialize() {
+        assert scrollPane != null : "ScrollPane must not be null";
+        assert dialogContainer != null : "DialogContainer must not be null";
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
     /** Injects the XiaoBai instance. */
     public void setXiaoBai(XiaoBai xb) {
+        assert xb != null : "XiaoBai instance must not be null";
         this.xiaoBai = xb;
     }
 
     /** Handles send button and Enter key. */
     @FXML
     private void handleUserInput() {
+        assert userInput != null : "UserInput field must not be null";
+        assert dialogContainer != null : "DialogContainer must not be null";
+        assert xiaoBai != null : "XiaoBai instance must be set before handling input";
         String input = userInput.getText();
         if (input == null || input.isBlank()) return;
 
         String response = xiaoBai.getResponse(input);
+        assert response != null : "Response must not be null";
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getBotDialog(response, botImage)
