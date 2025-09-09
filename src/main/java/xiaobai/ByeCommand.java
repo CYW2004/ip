@@ -15,6 +15,7 @@ public class ByeCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        assert ui != null : "Ui must not be null";
         ui.printBoxed("(¦3[▓▓] Bye! Hope to see you again soon!");
     }
 }

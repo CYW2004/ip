@@ -6,9 +6,9 @@ package xiaobai;
 public class GuiUi extends Ui {
     private final StringBuilder sb = new StringBuilder();
 
-    public void printLine() { /* no-op */ }
+    public void printLine() { }
 
-    public void printBox(String msg) {        // override to be GUI-friendly
+    public void printBox(String msg) {
         sb.append(msg).append(System.lineSeparator());
     }
 

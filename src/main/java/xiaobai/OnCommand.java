@@ -13,6 +13,7 @@ public class OnCommand extends Command {
      * @param raw Raw date string.
      */
     public OnCommand(String raw) {
+        assert raw != null : "Raw date string must not be null";
         this.raw = raw;
     }
 
@@ -27,6 +28,10 @@ public class OnCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws XiaoBaiException {
+        assert tasks != null : "TaskList must not be null";
+        assert ui != null : "Ui must not be null";
+        assert storage != null : "Storage must not be null";
+        assert raw != null && !raw.isBlank() : "Raw date string must not be null or blank";
         LocalDate d;
         try {
             d = LocalDate.parse(raw.trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -37,9 +42,11 @@ public class OnCommand extends Command {
                 throw new XiaoBaiException("Please give a date as yyyy-MM-dd or d/M/yyyy, e.g., 2019-12-02");
             }
         }
+        assert d != null : "Parsed date must not be null";
         StringBuilder sb = new StringBuilder();
         int n = 0;
         for (Task t : tasks.asList()) {
+            assert t != null : "Task in list must not be null";
             boolean match = false;
             if (t instanceof Deadline) {
                 match = ((Deadline) t).getBy().toLocalDate().equals(d);

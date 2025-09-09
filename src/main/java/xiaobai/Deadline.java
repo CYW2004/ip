@@ -13,7 +13,10 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String byRaw) throws XiaoBaiException {
         super(description);
+        assert description != null : "Description must not be null";
+        assert byRaw != null : "Raw deadline must not be null";
         this.by = DateTimeUtil.parseDateTimeLenient(byRaw);
+        assert by != null : "Parsed deadline must not be null";
     }
 
     /**
@@ -24,6 +27,8 @@ public class Deadline extends Task {
      */
     public Deadline(String description, LocalDateTime by) {
         super(description);
+        assert description != null : "Description must not be null";
+        assert by != null : "Deadline must not be null";
         this.by = by;
     }
 
@@ -33,6 +38,7 @@ public class Deadline extends Task {
      * @return Deadline as LocalDateTime.
      */
     public LocalDateTime getBy() {
+        assert by != null : "Deadline must not be null";
         return by;
     }
 
@@ -44,7 +50,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
+        assert by != null : "Deadline must not be null before printing";
         return "[D]" + super.toString() + " (by: " + DateTimeUtil.print(by) + ")";
     }
 }
-

@@ -13,6 +13,7 @@ public class Parser {
      * @throws XiaoBaiException If input is invalid or command cannot be parsed.
      */
     public static Command parse(String input) throws XiaoBaiException {
+        assert input != null : "Input must not be null";
         String s = input.trim();
         if (s.isEmpty()) {
             throw new UnknownCommandException(input);
@@ -113,6 +114,8 @@ public class Parser {
      * @throws XiaoBaiException If the index is invalid or not provided.
      */
     private static int parseIndexOrThrow(String s, String cmdName) throws XiaoBaiException {
+        assert s != null : "Index string must not be null";
+        assert cmdName != null : "Command name must not be null";
         String t = s.trim();
         if (t.isEmpty()) {
             throw new InvalidFormatException("Use: " + cmdName + " <task number>");
@@ -128,4 +131,3 @@ public class Parser {
         }
     }
 }
-

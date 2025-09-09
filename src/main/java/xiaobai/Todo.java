@@ -11,6 +11,8 @@ public class Todo extends Task {
      */
     public Todo(String description) {
         super(description);
+        assert description != null : "Description must not be null";
+        assert !description.isBlank() : "Description must not be blank";
     }
 
     /**
@@ -20,7 +22,7 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
+        assert description != null : "Description must not be null before printing";
         return "[T]" + super.toString();
     }
 }
-
