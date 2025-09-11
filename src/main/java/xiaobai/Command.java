@@ -6,6 +6,7 @@ public abstract class Command {
     }
 
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws XiaoBaiException;
+
     protected void save(Storage storage, TaskList tasks, Ui ui) {
         assert tasks != null : "TaskList must not be null";
         assert ui != null : "Ui must not be null";
