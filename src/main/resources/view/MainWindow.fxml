@@ -6,7 +6,8 @@
 <AnchorPane prefHeight="600.0" prefWidth="400.0"
             xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="xiaobai.MainWindow">
+            fx:controller="xiaobai.MainWindow"
+            stylesheets="@styles.css">
     <children>
         <TextField fx:id="userInput"
                    layoutY="558.0"

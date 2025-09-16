@@ -30,6 +30,11 @@ public class MainWindow {
     public void setXiaoBai(XiaoBai xb) {
         assert xb != null : "XiaoBai instance must not be null";
         this.xiaoBai = xb;
+
+        // Display greeting at startup
+        dialogContainer.getChildren().add(
+                DialogBox.getBotDialog("(*^_^*)\n Hello! I'm XiaoBai\n What can I do for you?", botImage)
+        );
     }
 
     /** Handles send button and Enter key. */

@@ -1,0 +1,28 @@
+/* styles.css */
+
+/* Apply background to the whole chat window */
+.root {
+    -fx-background-image: url("../images/background.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+
+/* Dialog container (chat area) with semi-transparent overlay */
+#dialogContainer {
+    -fx-background-color: rgba(255, 255, 255, 0.75); /* white with 75% opacity */
+    -fx-background-radius: 12;
+    -fx-padding: 10;
+}
+
+/* User messages */
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+
+/* Scroll pane styling */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
