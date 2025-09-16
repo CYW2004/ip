@@ -1,26 +1,167 @@
-# Duke project template
+# 📘 XiaoBai User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Welcome to **XiaoBai (小白)** --- your friendly task management
+chatbot.\
+XiaoBai helps you **track tasks, deadlines, and events** via simple
+commands in either console or GUI mode.
 
-## Setting up in Intellij
+------------------------------------------------------------------------
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+## 🚀 Getting Started
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+### 1. Running XiaoBai
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+You can launch XiaoBai in **two ways**:
+
+-   **GUI Mode** (recommended):\
+    Run the application and interact in a chat window.\
+
+-   **Console Mode**:\
+    Run from the command line:
+
+    ``` bash
+    java -jar XiaoBai.jar
+    ```
+
+When XiaoBai starts, you'll see this greeting:
+
+    (*^_^*)
+     Hello! I'm XiaoBai
+     What can I do for you?
+
+------------------------------------------------------------------------
+
+## ✨ Features
+
+### 1. Add a To-Do
+
+Create a simple task without a date.
+
+    todo <description>
+
+**Example:**
+
+    todo read book
+
+------------------------------------------------------------------------
+
+### 2. Add a Deadline
+
+Create a task with a due date/time.
+
+    deadline <description> /by <yyyy-MM-dd HH:mm>
+
+**Example:**
+
+    deadline submit report /by 2025-09-20 23:59
+
+------------------------------------------------------------------------
+
+### 3. Add an Event
+
+Create a task with a start and end time.
+
+    event <description> /from <yyyy-MM-dd HH:mm> /to <yyyy-MM-dd HH:mm>
+
+**Example:**
+
+    event project meeting /from 2025-09-18 10:00 /to 2025-09-18 12:00
+
+------------------------------------------------------------------------
+
+### 4. List All Tasks
+
+See everything you've added.
+
+    list
+
+------------------------------------------------------------------------
+
+### 5. Mark & Unmark Tasks
+
+Mark a task as done or not done.
+
+    mark <task number>
+    unmark <task number>
+
+**Example:**
+
+    mark 2
+
+------------------------------------------------------------------------
+
+### 6. Delete a Task
+
+Remove a task permanently.
+
+    delete <task number>
+
+------------------------------------------------------------------------
+
+### 7. Find Tasks by Keyword
+
+Search for tasks matching a word.
+
+    find <keyword>
+
+**Example:**
+
+    find book
+
+------------------------------------------------------------------------
+
+### 8. View Tasks on a Date
+
+See deadlines or events on a specific date.
+
+    on <yyyy-MM-dd>
+
+**Example:**
+
+    on 2025-09-20
+
+------------------------------------------------------------------------
+
+### 9. Clear All Tasks
+
+Remove all tasks at once.
+
+    clear
+
+------------------------------------------------------------------------
+
+### 10. Exit XiaoBai
+
+Say goodbye and exit.
+
+    bye
+
+------------------------------------------------------------------------
+
+## 💾 Data Storage
+
+-   Your tasks are **saved automatically** in `data/xiaobai.txt`.\
+-   They are **reloaded** every time you restart XiaoBai.
+
+------------------------------------------------------------------------
+
+## ⚠️ Notes & Error Messages
+
+-   XiaoBai provides **friendly emoji-style error messages** when
+    something goes wrong.\
+
+-   Example for unknown commands:
+
+        (・∀・*) I'm sorry, but I don't know what that means.
+
+------------------------------------------------------------------------
+
+## 🎨 GUI Features
+
+-   User messages appear on the right, XiaoBai's replies on the left.\
+-   Smooth scrolling chat interface.
+
+------------------------------------------------------------------------
+
+
+
