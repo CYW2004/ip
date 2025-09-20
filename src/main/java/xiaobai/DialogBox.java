@@ -30,6 +30,7 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         assert dialog != null : "Dialog label must be loaded";
         assert displayPicture != null : "Display picture must be loaded";
         dialog.setWrapText(true);
