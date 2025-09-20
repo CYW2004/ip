@@ -2,6 +2,7 @@ package xiaobai;
 
 /**
  * Handles user interaction by printing messages, errors, and dividers to the console.
+ * No longer useful in the latest version, but still kept here as a reference.
  */
 public class Ui {
     /**
