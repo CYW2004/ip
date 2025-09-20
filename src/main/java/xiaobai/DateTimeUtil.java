@@ -11,7 +11,7 @@ import java.util.Locale;
 
 /**
  * Utility class for parsing and formatting date and date-time values.
- * - Accepts ISO (yyyy-MM-dd ...) and DMY (d/M/uuuu ...) inputs
+ * - Accepts both ISO (yyyy-MM-dd ...) and DMY (d/M/uuuu ...) inputs
  * - Accepts time-only inputs (HHmm, HH:mm) -> combined with today's date
  * - Provides standardized ISO and friendly display formatters
  */
